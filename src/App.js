@@ -1,5 +1,5 @@
 import React from "react";
-import HomePagge from './componetes/homePagge';
+import HomePagge from './componetes/homePage';
 
 export default function App() {
   return (
