@@ -1,70 +1,135 @@
-# Getting Started with Create React App
+# 🏎️ Mario Kart React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicação em React que consome dados da [Mario Kart API](https://mario-kart-api.herokuapp.com) para exibir personagens e karts do universo Mario Kart. Ideal para praticar consumo de API REST com React e Axios.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Tecnologias Utilizadas
 
-### `npm start`
+- React 19
+- Axios
+- React Scripts
+- CSS (estilização básica)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## ⚙️ Como Executar o Projeto
 
-### `npm test`
+### Pré-requisitos
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js
+- npm ou yarn
 
-### `npm run build`
+### Instalação
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/projeto-react.git
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Acesse o diretório
+cd projeto-react
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Instale as dependências
+npm install
+```
 
-### `npm run eject`
+### Execução
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+O projeto será iniciado em `http://localhost:3000`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🌐 Sobre a API
 
-## Learn More
+Esta aplicação utiliza a [Mario Kart API](https://mario-kart-api.herokuapp.com/api/v1), criada por [JoelEncinas](https://github.com/JoelEncinas/SNES-MarioKart-API), que disponibiliza informações sobre personagens, karts e itens.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 🔧 Endpoints disponíveis
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| Rota         | Descrição                        |
+|--------------|----------------------------------|
+| `/characters` | Lista de personagens              |
+| `/karts`      | Lista de karts                    |
+| `/items`      | Lista de itens (pode estar fora do ar) |
 
-### Code Splitting
+### 📦 Exemplo de resposta de `/characters`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```json
+{
+  "characters": [
+    {
+      "id": 1,
+      "name": "Mario",
+      "image": "https://mario-kart-api.herokuapp.com/images/mario.png"
+    },
+    {
+      "id": 2,
+      "name": "Luigi",
+      "image": "https://mario-kart-api.herokuapp.com/images/luigi.png"
+    }
+    // ...
+  ]
+}
+```
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 📁 Estrutura de Pastas
 
-### Making a Progressive Web App
+```
+src/
+├── components/
+│   └── homePage/
+│       ├── index.js        # Componente principal
+│       └── style.css       # Estilos da home
+├── services/
+│   └── api.js              # Configuração Axios
+├── App.js                  # Componente principal do app
+├── index.js                # Entry point React
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 🌍 Configuração do Proxy (para evitar CORS)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Para evitar problemas de CORS durante o desenvolvimento local, foi adicionado o seguinte proxy no `package.json`:
 
-### Deployment
+```json
+"proxy": "https://mario-kart-api.herokuapp.com"
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+E a baseURL do Axios está configurada assim:
 
-### `npm run build` fails to minify
+```js
+// src/services/api.js
+import axios from "axios";
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+const api = axios.create({
+  baseURL: "/api/v1"
+});
+
+export default api;
+```
+
+Com isso, chamadas como `api.get('/characters')` são automaticamente redirecionadas para:
+
+```
+https://mario-kart-api.herokuapp.com/api/v1/characters
+```
+
+---
+
+## 👤 Autor
+
+Desenvolvido por [Nicollas](https://github.com/Nicoo200)
+
+---
+
+## 📄 Licença
+
+Distribuído sob a licença MIT.  
+Sinta-se livre para usar, modificar e distribuir este projeto.
+
