@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import api from './services/api';
+import api from '../../services/api';
 import './style.css';
 
 export default function App() {
   const [personagens, setPersonagens] = useState([]);
-  const [items, setItems] = useState([]);
   const [karts, setKarts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -12,18 +11,16 @@ export default function App() {
     async function carregarDados() {
       try {
         // Faz todas as requisições em paralelo
-        const [resPersonagens, resItems, resKarts] = await Promise.all([
-          api.get('characters'),
-          api.get('items'),
+        const [resPersonagens, resKarts] = await Promise.all([
+          api.get('characters'), // esse endpoint vira: http://localhost:3000/characters → que o proxy redireciona
           api.get('karts')
         ]);
 
         setPersonagens(resPersonagens.data.characters);
-        setItems(resItems.data.items);
         setKarts(resKarts.data.karts);
         
       } catch(erro) {
-        console.log("Erro ao carregar dados:", erro);
+        console.error("Erro ao carregar dados:", erro.response?.status, erro.message);
       } finally {
         setLoading(false);
       }
@@ -36,6 +33,7 @@ export default function App() {
     return <div className="loading">Carregando dados...</div>;
   }
 
+  //Renderizando na tela:
   return (
     <div className="App">
       <h1>Mario Kart API</h1>
@@ -47,18 +45,6 @@ export default function App() {
             <div key={personagem.id} className="card">
               <img src={personagem.image} alt={personagem.name} />
               <h3>{personagem.name}</h3>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <h2>Items ({items.length})</h2>
-        <div className="grid-container">
-          {items.map((item) => (
-            <div key={item.id} className="card">
-              <img src={item.image} alt={item.name} />
-              <h3>{item.name}</h3>
             </div>
           ))}
         </div>
